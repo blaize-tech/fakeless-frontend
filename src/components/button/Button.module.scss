@@ -1,0 +1,59 @@
+@import '../../styles/vars.scss';
+
+.btn {
+  font-family: 'HelveticaNeueCyr';
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1;
+
+  padding: 12px 22px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  background-color: var(--default-white-color);
+  transition: all .3s ease-in-out;
+
+  &:hover {
+    transition: all .3s ease-in-out;
+  }
+
+  &.primary {
+    background-color: $primary-color;
+    color: $white-text;
+
+    &:hover {
+      background-color: $primary-hover-color;
+    }
+  }
+
+  &.transparent {
+    background-color: transparent;
+    border: 1px solid $gray-text;
+
+    &:hover {
+      background-color: $primary-hover-color;
+      border: 1px solid $primary-hover-color;
+    }
+  }
+
+  &.maxHeight {
+    height: 100%;
+    min-height: 100%;
+  }
+
+  &.default {
+    font-size: 16px;
+  }
+
+  &.small {
+    font-weight: normal;
+    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 100px;
+    background-color: #292E37;
+
+    &:hover {
+      background-color: $primary-color;
+    }
+  }
+}
