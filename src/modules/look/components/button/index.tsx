@@ -1,4 +1,4 @@
-import AddIcon from '../../assets/img/add-icon.svg';
+import AddIcon from '@assets/img/add-icon.svg';
 import cn from 'classnames';
 import styles from './Button.module.scss';
 

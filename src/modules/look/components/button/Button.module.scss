@@ -1,5 +1,5 @@
-@import '../../modules/look/styles/theme/vars';
-@import '../../modules/look/styles/theme/mixins';
+@import '../../styles/theme/vars';
+@import '../../styles/theme/mixins';
 
 .btn {
   @include flex-align(center);

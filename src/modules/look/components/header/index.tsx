@@ -1,8 +1,8 @@
 import React from 'react';
-import { Auth } from '../../../look/components/auth/auth';
+import { Auth } from '../auth/auth';
 import { InitContract } from '../../../../utils';
 
-import FakeLessLogo from '../../../../assets/img/Fakeless-logo.svg';
+import FakeLessLogo from '@assets/img/Fakeless-logo.svg';
 import styles from './Header.module.scss';
 
 const Header = (props: InitContract) => {
@@ -11,9 +11,9 @@ const Header = (props: InitContract) => {
       <div className="container">
         <div className={styles.header__inner}>
           <div className={styles.header__wrapLogo}>
-            <div className={styles.header__logo}>
+            <a href="/" className={styles.header__logo}>
               <img src={FakeLessLogo} alt="FakeLess-logo" />
-            </div>
+            </a>
           </div>
           <Auth {...props} />
         </div>

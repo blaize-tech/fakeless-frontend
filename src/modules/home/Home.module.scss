@@ -274,20 +274,20 @@
     }
 
     &__btnGood:before {
-      background: url('../assets/img/green-bird-icon.svg') no-repeat center;
+      background: url('../../assets/img/green-bird-icon.svg') no-repeat center;
     }
 
     &__btnGood:hover:before {
-      background: url('../assets/img/green-bird-icon--hover.svg') no-repeat center;
+      background: url('../../assets/img/green-bird-icon--hover.svg') no-repeat center;
       transition: all .3s ease-in-out;
     }
 
     &__btnBad:before {
-      background: url('../assets/img/red-close-icon.svg') no-repeat center;
+      background: url('../../assets/img/red-close-icon.svg') no-repeat center;
     }
 
     &__btnBad:hover:before {
-      background: url('../assets/img/red-close-icon--hover.svg') no-repeat center;
+      background: url('../../assets/img/red-close-icon--hover.svg') no-repeat center;
       transition: all .3s ease-in-out;
     }
 

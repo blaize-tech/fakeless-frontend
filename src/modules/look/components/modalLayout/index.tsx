@@ -1,4 +1,4 @@
-import CloseIcon from '../../assets/img/close-icon.svg';
+import CloseIcon from '@assets/img/close-icon.svg';
 import styles from './ModalLayout.module.scss';
 
 export interface IModal {

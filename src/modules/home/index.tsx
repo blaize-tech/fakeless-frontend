@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { Modal, Form, Input, message, Button } from 'antd';
-import { ModalLayout } from '../../components/modalLayout';
-import { Button as CustomButton } from '../../components/button';
+import { Button as CustomButton } from '../look/components/button';
 import cn from 'classnames';
 import FakeLessTitle from '../../assets/img/Fakeless-title.svg';
-import styles from './Home.module.scss';
 
 import NewsImage1 from '../../assets/img/news/news-item--1.png';
 import NewsImage2 from '../../assets/img/news/news-item--2.png';
+import NewsImage3 from '../../assets/img/news/news-item--3.png';
+import NewsImage4 from '../../assets/img/news/news-item--4.png';
 import CloseIcon from '../../assets/img/close-icon.svg';
+
+import styles from './Home.module.scss';
 
 const Home = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -35,19 +37,6 @@ const Home = () => {
     message.error('Submit failed!');
   };
 
-  // interface PublishedNewsTypes {
-  //     id: number,
-  //     Title: string,
-  //     Desc: string,
-  //     Date: string,
-  //     ImagePath: string,
-  //     Source: string,
-  //     Credibility: number,
-  //     ValidatorsScoreGood: number,
-  //     ValidatorsScoreBad: number,
-  //     NewsTags: ['Life', 'Mental Health', 'Psychology']
-  // }
-
   const PublishedNews = [
     {
       id: 1,
@@ -59,7 +48,7 @@ const Home = () => {
       Credibility: 98,
       ValidatorsScoreGood: 125,
       ValidatorsScoreBad: 1,
-      NewsTags: ['Life', 'Mental Health', 'Psychology'],
+      NewsTags: [{ TagTitle: 'Life' }, { TagTitle: 'Mental Health' }, { TagTitle: 'Psychology' }],
     },
     {
       id: 2,
@@ -67,21 +56,56 @@ const Home = () => {
       Desc: 'How you can deploy Self-Determination Theory to better your life and life.',
       Date: '1 day ago',
       ImagePath: `${NewsImage2}`,
-      Source: '',
-      Credibility: 30,
+      Source: 'Medium',
+      Credibility: 4,
       ValidatorsScoreGood: 4,
       ValidatorsScoreBad: 1,
-      NewsTags: ['Life', 'Mental Health', 'Psychology'],
+      NewsTags: [{ TagTitle: 'Life' }, { TagTitle: 'Mental Health' }, { TagTitle: 'Psychology' }],
+    },
+    {
+      id: 3,
+      Title: '7 Daily Habits That Harm Your Brain',
+      Desc:
+        'How you can deploy Self-Determination ' +
+        'Theory to better your life and life. How you can deploy Self-Determination ' +
+        'Theory to better your life and life. How you can deploy Self-Determination ' +
+        'Theory to better your life and life. How you can deploy Self-Determination ' +
+        'Theory to better your life and life. How you can deploy Self-Determination ' +
+        'Theory to better your life and life. How you can deploy Self-Determination' +
+        ' Theory to better your life and life.',
+      Date: '12 day ago',
+      ImagePath: `${NewsImage3}`,
+      Source: 'Medium',
+      Credibility: 2,
+      ValidatorsScoreGood: 4,
+      ValidatorsScoreBad: 133,
+      NewsTags: [{ TagTitle: 'Life' }, { TagTitle: 'Mental Health' }, { TagTitle: 'Psychology' }],
+    },
+    {
+      id: 4,
+      Title: '7 Daily Habits That Harm Your Brain',
+      Desc: 'How you can deploy Self-Determination Theory to better your life and life.',
+      Date: '1 day ago',
+      ImagePath: `${NewsImage4}`,
+      Source: 'Medium',
+      Credibility: 100,
+      ValidatorsScoreGood: 22,
+      ValidatorsScoreBad: 0,
+      NewsTags: [{ TagTitle: 'Life' }, { TagTitle: 'Mental Health' }, { TagTitle: 'Psychology' }],
     },
   ];
 
-  const [modalShow, setModalShow] = useState(false);
-
   const isLogged = true;
+  const CredibilityStartedRed = 50;
 
   const clickOnTags = () => {
     console.log('click Tag');
   };
+
+  const publishedNewsItem = () => {
+    console.log('click publishedNewsItem');
+  };
+
   return (
     <main>
       <div className={styles.intro}>
@@ -138,23 +162,23 @@ const Home = () => {
                   </div>
 
                   <div>
-                    <h2>{item.Title}</h2>
-                    <p>{item.Desc}</p>
-                    <div>
+                    <h2 className={styles.newsBody__title}>{item.Title}</h2>
+                    <p className={styles.newsBody__desc}>{item.Desc}</p>
+                    <div className={styles.newsBody__subInfo}>
                       <p>{item.Date}</p>
                       <p>
                         Source: <span>{item.Source}</span>
                       </p>
                     </div>
 
-                    <ul>
-                      {item.NewsTags.map((tagItem: any) => (
-                        <li key={tagItem.id}>
+                    <ul className={styles.newsBody__tags}>
+                      {item.NewsTags.map((tagItem: any, id: number) => (
+                        <li key={id} className={styles.newsBody__tagsItem}>
                           <CustomButton
                             size="small"
                             color="primary"
                             onClick={clickOnTags}
-                            text={item.NewsTag}
+                            text={tagItem.TagTitle}
                           />
                         </li>
                       ))}
@@ -162,16 +186,37 @@ const Home = () => {
                   </div>
                 </div>
 
-                <div className={styles.newsStats} />
+                <div className={styles.newsStats}>
+                  <p className={styles.newsStats__title}>
+                    Credibility:
+                    <span className={cn(item.Credibility < CredibilityStartedRed && styles.red)}>
+                      {item.Credibility}%
+                    </span>
+                  </p>
+                  <div className={styles.validators}>
+                    <p>Validators score:</p>
+                    <button className={cn(styles.validators__btn, styles.validators__btnGood)}>
+                      {item.ValidatorsScoreGood}
+                    </button>
+
+                    <button className={cn(styles.validators__btn, styles.validators__btnBad)}>
+                      {item.ValidatorsScoreBad}
+                    </button>
+                  </div>
+
+                  <CustomButton
+                    text="Published"
+                    color="primary"
+                    size="default"
+                    onClick={publishedNewsItem}
+                  />
+                </div>
               </li>
             ))}
           </ul>
         </div>
       </div>
 
-      {modalShow && (
-        <ModalLayout hideModal={() => setModalShow(false)}>{/*<ModalAddNews />*/}</ModalLayout>
-      )}
       <Modal
         title="Add news"
         visible={isModalVisible}
