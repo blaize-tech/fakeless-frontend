@@ -1,9 +1,9 @@
-import { InitContract } from '../../../../utils';
+import { IContract, NEAR_TOKEN_PRECISION } from '../../../../utils';
 import { Button } from '../Button';
 import WnearSmallIcon from '@assets/img/wnear-logo.svg';
 import styles from './Auth.module.scss';
 
-export function Auth(props: InitContract) {
+export function Auth(props: IContract) {
   const { walletConnection } = props;
 
   function signIn() {
@@ -35,7 +35,7 @@ export function Auth(props: InitContract) {
             <div>
               <img src={WnearSmallIcon} alt="Wnear Icon" />
             </div>
-            <p>106.810</p>
+            <p>{((props?.currentUser?.balance || 0) / NEAR_TOKEN_PRECISION).toFixed(2)}</p>
           </div>
 
           <button className={styles.accountIdBtn}>

@@ -1,11 +1,11 @@
 import React from 'react';
 import { Auth } from '../../../look/components/Auth/auth';
-import { InitContract } from '../../../../utils';
 
 import FakeLessLogo from '../../../../assets/img/Fakeless-logo.svg';
 import styles from './Header.module.scss';
+import { IContract } from 'src/utils';
 
-const Header = (props: InitContract) => {
+const Header = (props: IContract) => {
   return (
     <header className={styles.header}>
       <div className="container">
