@@ -1,0 +1,143 @@
+@import '~antd/dist/antd.css';
+
+@import 'theme/vars';
+@import 'theme/mixins';
+
+* {
+  font-family: 'HelveticaNeueCyr', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -moz-padding-start: 0;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 1;
+  background-color: $dark-bg;
+  color: $light-gray-text;
+}
+
+h1,
+h2,
+h3 {
+  color: $light-gray-text;
+  font-weight: bold;
+  line-height: 1;
+}
+
+h1 {
+  font-size: 40px;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+p {
+  margin-bottom: 0;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+}
+
+a,
+a:hover,
+a:focus {
+  color: inherit;
+  text-decoration: none;
+}
+
+#root {
+  height: 100%;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+.container {
+  max-width: 1140px;
+  width: 100%;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+.btn {
+  font-weight: 550;
+  font-size: 16px;
+  line-height: 16px;
+  padding: 18px 34px 16px;
+  color: #D9D9D9;
+
+  &.cancel {
+    background: transparent;
+    border: 1px solid #D9D9D9;
+  }
+
+  &:disabled {
+    background: #353D49;
+    border-color: #353D49;
+    color: #56606F;
+
+    &:hover, &:focus {
+      background: #353D49;
+      border-color: #353D49;
+      color: #56606F;
+    }
+  }
+}
+
+body {
+  .ant {
+    &-btn {
+      height: auto;
+    }
+    &-form {
+      &-item {
+        &-label {
+          > label {
+              color: #D9D9D9;
+            font-size: 18px;
+          }
+        }
+      }
+    }
+
+    &-input {
+      height: auto;
+      background: #202630;
+      border: 1px solid #666666;
+      color: #fff;
+      min-height: 45px;
+      border-radius: 0;
+      padding: 10px 15px;
+      font-size: 16px;
+
+      &:focus, &:hover {
+        box-shadow: none;
+        border-color: #704CFF;
+      }
+    }
+  }
+}
