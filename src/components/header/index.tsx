@@ -11,9 +11,9 @@ const Header = (props: InitContract) => {
             <div className="container">
                 <div className={styles.header__inner}>
                     <div className={styles.header__wrapLogo}>
-                        <div className={styles.header__logo}>
+                        <a href="/" className={styles.header__logo}>
                             <img src={FakeLessLogo} alt="FakeLess-logo"/>
-                        </div>
+                        </a>
                     </div>
                     <Auth {...props} />
                 </div>

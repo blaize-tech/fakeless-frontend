@@ -124,7 +124,6 @@
     display: flex;
     width: 100%;
     min-height: 231px;
-    height: 231px;
     border: 1px solid $border-color;
     margin-bottom: 30px;
 
@@ -134,15 +133,164 @@
   }
 
   .newsBody {
+    @include flex-align(center);
     flex-grow: 1;
     height: 100%;
     padding: 40px;
+
+    &__images {
+      align-self: baseline;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: 30px;
+    }
+
+    &__title {
+      margin-bottom: 10px;
+    }
+
+    &__desc {
+      margin-bottom: 20px;
+      color: $gray-text;
+      max-width: 455px;
+      line-height: 1.1;
+    }
+
+    &__subInfo {
+      @include flex-align(center);
+      margin-bottom: 20px;
+
+      p {
+        width: fit-content;
+        color: #6E6E6E;
+
+        &:first-child {
+          margin-right: 23px;
+          position: relative;
+
+          &:after {
+            content: "";
+            position: absolute;
+            right: -12px;
+            top: 7px;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            overflow: hidden;
+            background-color: #6E6E6E;
+          }
+        }
+      }
+
+      span {
+        color: #5FECFF;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 1;
+      }
+    }
+
+    &__subInfo {
+      @include flex-align(center);
+    }
+
+    &__tags {
+      @include flex-align(center);
+
+      &Item {
+        margin-right: 8px;
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
   }
 
   .newsStats {
+    @include flex-align(stretch);
+    flex-direction: column;
     width: 349px;
-    height: 100%;
     background: rgba(255, 255, 255, 0.05);
     padding: 43px 25px 40px;
+
+    &__title {
+      font-weight: 500;
+      font-size: 20px;
+      margin-bottom: 24px;
+
+      span {
+        font-weight: bold;
+        font-size: 24px;
+        color: $green;
+        margin-left: 7px;
+
+        &.red {
+          color: $red;
+        }
+      }
+    }
+
+    button {
+      width: fit-content;
+      margin-top: auto;
+    }
+  }
+
+  .validators {
+    @include flex-align(center);
+
+    p {
+      color: $gray-text;
+      width: fit-content;
+      margin-right: 10px;
+    }
+
+    &__btn {
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 14px;
+      color: $gray-text;
+      background-color: transparent;
+      border: none;
+      outline: none;
+      margin-right: 15px;
+      padding-left: 26px;
+      height: 20px;
+      position: relative;
+      cursor: pointer;
+
+      &:before {
+        position: absolute;
+        content: "";
+        top: 0;
+        left: 0;
+        width: 20px;
+        height: 20px;
+        background-size: 100%;
+        transition: all .3s ease-in-out;
+      }
+    }
+
+    &__btnGood:before {
+      background: url('../assets/img/green-bird-icon.svg') no-repeat center;
+    }
+
+    &__btnGood:hover:before {
+      background: url('../assets/img/green-bird-icon--hover.svg') no-repeat center;
+      transition: all .3s ease-in-out;
+    }
+
+    &__btnBad:before {
+      background: url('../assets/img/red-close-icon.svg') no-repeat center;
+    }
+
+    &__btnBad:hover:before {
+      background: url('../assets/img/red-close-icon--hover.svg') no-repeat center;
+      transition: all .3s ease-in-out;
+    }
+
   }
 }

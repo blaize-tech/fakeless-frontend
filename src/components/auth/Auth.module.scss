@@ -1,15 +1,48 @@
+@import '../../styles/vars.scss';
+@import '../../styles/mixins.scss';
+
 .auth {
   width: fit-content;
   height: 100%;
 
   &__signed {
-    display: flex;
-    align-items: center;
+    @include flex-align(center);
+    height: 100%;
+  }
+
+  .accountIdBtn {
+    font-weight: 550;
+    font-size: 18px;
+    line-height: 1;
+    color: $light-gray-text;
+    height: 100%;
+    background: none;
+    outline: none;
+    border: none;
+    padding: 0 27px;
+    transition: all .3s ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+      color: $primary-hover-color;
+      transition: all .3s ease-in-out;
+    }
   }
 
   &__value {
-    display: flex;
-    align-items: center;
+    @include flex-align(center);
+    height: 100%;
+    position: relative;
+
+    &:after {
+      content: '';
+      position: absolute;
+      right: 10px;
+      top: 0;
+      width: 1px;
+      height: 100%;
+      background-color: $border-color;
+    }
 
     & > div {
       width: 16px;
@@ -23,9 +56,10 @@
     }
 
     & > p {
-      font-weight: 500;
-      font-size: 16px;
-      line-height: 24px;
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 1;
+      color: $white-text;
       margin-right: 32px;
     }
   }

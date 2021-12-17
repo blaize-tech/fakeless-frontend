@@ -38,13 +38,12 @@ export function Auth(props: InitContract) {
                                 </div>
                                 <p>106.810</p>
                             </div>
-                            <Button
-                                maxHeight={true}
-                                size="default"
-                                color="primary"
-                                onClick={() => signOut()}
-                                text={walletConnection.getAccountId()}
-                            />
+
+                            <button className={styles.accountIdBtn}>
+                                NearLend.Testnet
+                                {/*{walletConnection.getAccountId()}*/}
+                            </button>
+
                             <Button
                                 maxHeight={true}
                                 size="default"
