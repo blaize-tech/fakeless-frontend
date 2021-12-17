@@ -69,7 +69,6 @@ const Home = () => {
   };
 
   const handleOk = () => {
-
     console.log(values);
     setIsModalVisible(false);
   };
