@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Form, Input, message, Button } from 'antd';
+import { Modal, Form, Input, notification, Button } from 'antd';
 import { Button as CustomButton } from '../look/components/Button';
 import cn from 'classnames';
 import FakeLessTitle from '../../assets/img/Fakeless-title.svg';
@@ -81,12 +81,15 @@ const Home = () => {
   const [form] = Form.useForm();
 
   const onFinish = () => {
-    message.success('Submit success!');
+    console.log('Submit success!');
+    notification.success({
+      message: 'Success',
+      className: 'notificationError',
+      description: 'News successfully added',
+    });
   };
 
-  const onFinishFailed = () => {
-    message.error('Submit failed!');
-  };
+  const onFinishFailed = () => {};
 
   const PublishedNews = [
     {
@@ -275,14 +278,7 @@ const Home = () => {
         onCancel={handleCancel}
         className={styles.modal__addNews}
         closeIcon={<img src={CloseIcon} alt="" />}
-        footer={[
-          <Button className="btn cancel" key="back" onClick={handleCancel}>
-            Cancel
-          </Button>,
-          <Button className="btn" key="submit" type="primary" htmlType="submit" onClick={handleOk}>
-            Add news
-          </Button>,
-        ]}
+        footer={null}
       >
         <Form
           form={form}
@@ -292,8 +288,12 @@ const Home = () => {
           autoComplete="off"
         >
           <Form.Item
+            name="url"
             rules={[
               { required: true, pattern: new RegExp(regex), message: 'Please input correct url!' },
+              // @ts-ignore
+              { type: 'url', warningOnly: true },
+              { type: 'string', min: 6 },
             ]}
             label="News URL"
           >
@@ -326,6 +326,16 @@ const Home = () => {
               required
             />
             <p>At leeast 5 characters</p>
+          </Form.Item>
+          <Form.Item>
+            <div className={styles.modal__addNews__footer}>
+              <Button className="btn cancel" key="back" onClick={handleCancel}>
+                Cancel
+              </Button>
+              <Button className="btn" type="primary" htmlType="submit">
+                Add news
+              </Button>
+            </div>
           </Form.Item>
         </Form>
       </Modal>

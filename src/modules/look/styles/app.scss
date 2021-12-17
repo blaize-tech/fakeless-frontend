@@ -112,6 +112,17 @@ body {
   .ant {
     &-btn {
       height: auto;
+      border-radius: 0;
+
+      &-primary {
+        background: #704CFF;
+        border-color: #704CFF;
+
+        &:hover {
+          background: #623efb;
+          border-color: #623efb;
+        }
+      }
     }
     &-form {
       &-item {
@@ -137,6 +148,16 @@ body {
       &:focus, &:hover {
         box-shadow: none;
         border-color: #704CFF;
+      }
+    }
+
+    &-form-item-has-error {
+      .ant-input {
+        background: #202630;
+
+        &:hover {
+          background: #202630;
+        }
       }
     }
   }
