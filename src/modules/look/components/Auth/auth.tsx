@@ -1,5 +1,5 @@
 import { InitContract } from '../../../../utils';
-import { Button } from '../button';
+import { Button } from '../Button';
 import WnearSmallIcon from '@assets/img/wnear-logo.svg';
 import styles from './Auth.module.scss';
 

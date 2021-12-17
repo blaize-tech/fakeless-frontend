@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, Form, Input, message, Button } from 'antd';
-import { Button as CustomButton } from '../look/components/button';
+import { Button as CustomButton } from '../look/components/Button';
 import cn from 'classnames';
 import FakeLessTitle from '../../assets/img/Fakeless-title.svg';
 

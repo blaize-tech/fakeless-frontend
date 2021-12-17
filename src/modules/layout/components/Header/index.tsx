@@ -1,5 +1,5 @@
 import React from 'react';
-import { Auth } from '../../../look/components/auth/auth';
+import { Auth } from '../../../look/components/Auth/auth';
 import { InitContract } from '../../../../utils';
 
 import FakeLessLogo from '../../../../assets/img/Fakeless-logo.svg';
