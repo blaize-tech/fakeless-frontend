@@ -1,5 +1,5 @@
-@import '../../styles/vars.scss';
-@import '../../styles/mixins.scss';
+@import '../../../look/styles/theme/vars';
+@import '../../../look/styles/theme/mixins';
 
 .footer {
   flex: 0 0 auto;
@@ -62,8 +62,6 @@
           color: $gray-text;
         }
       }
-
-
     }
   }
 

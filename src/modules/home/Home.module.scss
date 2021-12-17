@@ -1,5 +1,5 @@
-@import '../styles/vars.scss';
-@import '../styles/mixins.scss';
+@import '../look/styles/theme/vars';
+@import '../look/styles/theme/mixins';
 
 .intro {
   width: 100%;
@@ -65,7 +65,7 @@
     border-color: $primary-color;
 
     &.op3 {
-      border-color: #2E2B56;
+      border-color: #2e2b56;
     }
 
     &.op5 {
@@ -73,7 +73,7 @@
     }
 
     &.op7 {
-      border-color: #6044D5;
+      border-color: #6044d5;
     }
 
     &.op9 {
@@ -85,23 +85,23 @@
     background-color: $primary-color;
 
     &.op1 {
-      opacity: .1;
+      opacity: 0.1;
     }
 
     &.op2 {
-      opacity: .2;
+      opacity: 0.2;
     }
 
     &.op3 {
-      opacity: .3;
+      opacity: 0.3;
     }
 
     &.op5 {
-      opacity: .5;
+      opacity: 0.5;
     }
 
     &.op8 {
-      opacity: .8;
+      opacity: 0.8;
     }
   }
 }
@@ -114,7 +114,6 @@
     margin-left: auto;
   }
 }
-
 
 .newsList {
   margin-top: 30px;
@@ -144,5 +143,48 @@
     height: 100%;
     background: rgba(255, 255, 255, 0.05);
     padding: 43px 25px 40px;
+  }
+}
+
+.modal {
+  &__addNews {
+    position: relative;
+
+    :global(.ant-modal-content) {
+      background: #2B313A;
+    }
+
+    :global(.ant-modal-close) {
+      top: 16px;
+      right: 5px;
+    }
+
+    :global(.ant-modal-body) {
+      padding-bottom: 0;
+    }
+
+    :global(.ant-form-item-control) {
+      p {
+        color: #8F8F8F;
+        margin-top: 6px;
+      }
+    }
+
+    :global(.ant-modal-header) {
+      background: #2B313A;
+      padding: 40px 20px;
+      border-color: #666666;
+
+      :global(.ant-modal-title) {
+        font-weight: bold;
+        font-size: 24px;
+        line-height: 18px;
+        color: #FBFBFB;
+      }
+    }
+
+    :global(.ant-modal-footer) {
+      border: 0;
+    }
   }
 }

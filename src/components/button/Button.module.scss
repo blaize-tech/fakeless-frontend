@@ -1,9 +1,9 @@
-@import '../../styles/vars.scss';
-@import '../../styles/mixins.scss';
+@import '../../modules/look/styles/theme/vars';
+@import '../../modules/look/styles/theme/mixins';
 
 .btn {
   @include flex-align(center);
-  font-family: 'HelveticaNeueCyr';
+  font-family: 'HelveticaNeueCyr', sans-serif;
   font-weight: 500;
   font-size: 18px;
   line-height: 1;
@@ -13,10 +13,10 @@
   border: none;
   cursor: pointer;
   background-color: var(--default-white-color);
-  transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 
   &:hover {
-    transition: all .3s ease-in-out;
+    transition: all 0.3s ease-in-out;
   }
 
   &.primary {
@@ -52,7 +52,7 @@
     font-size: 12px;
     padding: 6px 12px;
     border-radius: 100px;
-    background-color: #292E37;
+    background-color: #292e37;
 
     &:hover {
       background-color: $primary-color;
