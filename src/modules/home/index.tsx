@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal, Form, Input, notification, Button } from 'antd';
 import { Button as CustomButton } from '../look/components/Button';
 import cn from 'classnames';
@@ -12,6 +12,18 @@ import NewsImage4 from '../../assets/img/news/news-item--4.png';
 import CloseIcon from '../../assets/img/close-icon.svg';
 
 import styles from './Home.module.scss';
+import { IContract } from 'src/utils';
+import { withSuccess } from 'antd/lib/modal/confirm';
+
+function getImage(): string {
+  function getRandomInt(max: number) {
+    return Math.floor(Math.random() * max);
+  }
+
+  const news = [NewsImage2, NewsImage1, NewsImage2, NewsImage3, NewsImage4];
+
+  return news[getRandomInt(4)];
+}
 
 interface FormValue {
   uri: string;
@@ -25,13 +37,43 @@ const initialState = {
   body: '',
 };
 
+interface News {
+  creator: string;
+  dislike: number;
+  hash_body: string;
+  hash_head: string;
+  id: number;
+  like: number;
+  published: boolean;
+  uri: string;
+  voted: string[];
+}
+
 const regex =
   '(https?://(?:www.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9].[^s]{2,}' +
   '|www.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9].[^s]{2,}|https?://(?:www.|(?!www))' +
   '[a-zA-Z0-9]+.[^s]{2,}|www.[a-zA-Z0-9]+.[^s]{2,})';
 
-const Home = () => {
+const Home = (props: IContract) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [newsList, setNews] = useState([] as News[]);
+  const { fakeNewsContract } = props;
+
+  async function updateNews() {
+    const news = await fakeNewsContract.get_all();
+    console.log(news);
+    setNews(news);
+  }
+
+  useEffect(() => {
+    (async function () {
+      try {
+        await updateNews();
+      } catch (err) {
+        console.error(err);
+      }
+    })();
+  }, []);
 
   const useForm = (callback: any, initial: FormValue) => {
     const [values, setValues] = useState(initialState);
@@ -42,8 +84,7 @@ const Home = () => {
       setValues({ ...values, [event.target.name]: event.target.value });
     };
     const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
-      await callback();
+      await callback(values);
     };
 
     return {
@@ -55,12 +96,46 @@ const Home = () => {
     };
   };
 
-  async function loginUserCallback() {
-    console.log('loginUserCallback');
+  function withSuccess(text: string){
+    notification.success({
+      message: 'Success',
+      className: 'notificationError',
+      description: text,
+    });
+  }
+
+  function withError(text: string){
+    notification.error({
+      message: 'Error',
+      className: 'notificationError',
+      description: text,
+    });
+  }
+
+  async function makeVote(news: News, is_like: boolean) {
+    try {
+      await fakeNewsContract.vote({ index: news.id,  is_like });
+      await updateNews();
+      withSuccess('Your vote was added');
+    } catch(err) {
+      withError(err.message);
+    }
+  }
+
+  async function onFinish(formValues: FormValue) {
+    console.log('Submit success!', formValues);
+    await fakeNewsContract.add({
+      hash_head: formValues.header,
+      hash_body: formValues.body,
+      uri: formValues.uri,
+    });
+    await updateNews();
+    setIsModalVisible(false);
+    withSuccess('News successfully added');
   }
 
   const { onInputChange, onSubmit, onTextAreaChange, setValues, values } = useForm(
-    loginUserCallback,
+    onFinish,
     initialState,
   );
 
@@ -80,74 +155,7 @@ const Home = () => {
 
   const [form] = Form.useForm();
 
-  const onFinish = () => {
-    console.log('Submit success!');
-    notification.success({
-      message: 'Success',
-      className: 'notificationError',
-      description: 'News successfully added',
-    });
-  };
-
   const onFinishFailed = () => {};
-
-  const PublishedNews = [
-    {
-      id: 1,
-      Title: '7 Daily Habits That Harm Your Brain',
-      Desc: 'How you can deploy Self-Determination Theory to better your life and life.',
-      Date: '1 day ago',
-      ImagePath: `${NewsImage1}`,
-      Source: 'Medium',
-      Credibility: 98,
-      ValidatorsScoreGood: 125,
-      ValidatorsScoreBad: 1,
-      NewsTags: [{ TagTitle: 'Life' }, { TagTitle: 'Mental Health' }, { TagTitle: 'Psychology' }],
-    },
-    {
-      id: 2,
-      Title: '7 Daily Habits That Harm Your Brain',
-      Desc: 'How you can deploy Self-Determination Theory to better your life and life.',
-      Date: '1 day ago',
-      ImagePath: `${NewsImage2}`,
-      Source: 'Medium',
-      Credibility: 4,
-      ValidatorsScoreGood: 4,
-      ValidatorsScoreBad: 1,
-      NewsTags: [{ TagTitle: 'Life' }, { TagTitle: 'Mental Health' }, { TagTitle: 'Psychology' }],
-    },
-    {
-      id: 3,
-      Title: '7 Daily Habits That Harm Your Brain',
-      Desc:
-        'How you can deploy Self-Determination ' +
-        'Theory to better your life and life. How you can deploy Self-Determination ' +
-        'Theory to better your life and life. How you can deploy Self-Determination ' +
-        'Theory to better your life and life. How you can deploy Self-Determination ' +
-        'Theory to better your life and life. How you can deploy Self-Determination ' +
-        'Theory to better your life and life. How you can deploy Self-Determination' +
-        ' Theory to better your life and life.',
-      Date: '12 day ago',
-      ImagePath: `${NewsImage3}`,
-      Source: 'Medium',
-      Credibility: 2,
-      ValidatorsScoreGood: 4,
-      ValidatorsScoreBad: 133,
-      NewsTags: [{ TagTitle: 'Life' }, { TagTitle: 'Mental Health' }, { TagTitle: 'Psychology' }],
-    },
-    {
-      id: 4,
-      Title: '7 Daily Habits That Harm Your Brain',
-      Desc: 'How you can deploy Self-Determination Theory to better your life and life.',
-      Date: '1 day ago',
-      ImagePath: `${NewsImage4}`,
-      Source: 'Medium',
-      Credibility: 100,
-      ValidatorsScoreGood: 22,
-      ValidatorsScoreBad: 0,
-      NewsTags: [{ TagTitle: 'Life' }, { TagTitle: 'Mental Health' }, { TagTitle: 'Psychology' }],
-    },
-  ];
 
   const isLogged = true;
   const CredibilityStartedRed = 50;
@@ -156,8 +164,10 @@ const Home = () => {
     console.log('click Tag');
   };
 
-  const publishedNewsItem = () => {
-    console.log('click publishedNewsItem');
+  async function publishedNewsItem(news: News) {
+    if (news.like < 3 ) return;
+    await fakeNewsContract.nft_mint({ index : news.id });
+    await updateNews();
   };
 
   return (
@@ -208,25 +218,26 @@ const Home = () => {
             </div>
           )}
           <ul className={styles.newsList}>
-            {PublishedNews.map((item: any) => (
+            {newsList.map((item: News) => (
               <li key={item.id} className={styles.newsList__item}>
                 <div className={styles.newsBody}>
                   <div className={styles.newsBody__images}>
-                    <img src={item.ImagePath} alt="News Images" />
+                    <img src={getImage()} alt="News Images" />
                   </div>
 
                   <div>
-                    <h2 className={styles.newsBody__title}>{item.Title}</h2>
-                    <p className={styles.newsBody__desc}>{item.Desc}</p>
+                    <h2 className={styles.newsBody__title}>{item.hash_head}</h2>
+                    <p className={styles.newsBody__desc}>{item.hash_body}</p>
                     <div className={styles.newsBody__subInfo}>
-                      <p>{item.Date}</p>
+                      <p>17.12.2021</p>
+                      {/* <p>{item.date}</p> */}
                       <p>
-                        Source: <span>{item.Source}</span>
+                        Source: <a href={item.uri} target="_blank">{item.uri}</a>
                       </p>
                     </div>
 
                     <ul className={styles.newsBody__tags}>
-                      {item.NewsTags.map((tagItem: any, id: number) => (
+                      {/* {item.NewsTags.map((tagItem: any, id: number) => (
                         <li key={id} className={styles.newsBody__tagsItem}>
                           <CustomButton
                             size="small"
@@ -235,7 +246,7 @@ const Home = () => {
                             text={tagItem.TagTitle}
                           />
                         </li>
-                      ))}
+                      ))} */}
                     </ul>
                   </div>
                 </div>
@@ -243,26 +254,26 @@ const Home = () => {
                 <div className={styles.newsStats}>
                   <p className={styles.newsStats__title}>
                     Credibility:
-                    <span className={cn(item.Credibility < CredibilityStartedRed && styles.red)}>
-                      {item.Credibility}%
+                    <span className={(((item.dislike + item.like >= 5) && (item.like < item.dislike)) ? styles.red : "")}>
+                      {(item.like > 0 && item.dislike > 0) ? (((item.like / ( item.like + item.dislike)).toFixed(2)) * 100) : 100} %
                     </span>
                   </p>
                   <div className={styles.validators}>
                     <p>Validators score:</p>
-                    <button className={cn(styles.validators__btn, styles.validators__btnGood)}>
-                      {item.ValidatorsScoreGood}
+                    <button onClick={()=> {makeVote(item, true)}} className={cn(styles.validators__btn, styles.validators__btnGood)}>
+                      {item.like}
                     </button>
 
-                    <button className={cn(styles.validators__btn, styles.validators__btnBad)}>
-                      {item.ValidatorsScoreBad}
+                    <button onClick={()=> {makeVote(item, false)}} className={cn(styles.validators__btn, styles.validators__btnBad)}>
+                      {item.dislike}
                     </button>
                   </div>
 
                   <CustomButton
-                    text="Published"
-                    color="primary"
+                    text={(item.published ? "Published" : "Publish")}
+                    color={(item.published ? "transaprent" : "primary")}
                     size="default"
-                    onClick={publishedNewsItem}
+                    onClick={()=>{ publishedNewsItem(item) }}
                   />
                 </div>
               </li>
@@ -283,20 +294,11 @@ const Home = () => {
         <Form
           form={form}
           layout="vertical"
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
+          onFinish={onSubmit}
+          // onFinishFailed={onFailed}
           autoComplete="off"
         >
-          <Form.Item
-            name="url"
-            rules={[
-              { required: true, pattern: new RegExp(regex), message: 'Please input correct url!' },
-              // @ts-ignore
-              { type: 'url', warningOnly: true },
-              { type: 'string', min: 6 },
-            ]}
-            label="News URL"
-          >
+          <Form.Item name="url" rules={[{ type: 'url', required: true }]} label="News URL">
             <Input value={values.uri} name="uri" id="uri" type="uri" onChange={onInputChange} />
           </Form.Item>
           <Form.Item

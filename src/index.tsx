@@ -6,5 +6,6 @@ import { IContract, initContract } from './utils';
 import 'antd/dist/antd.less'; // or 'antd/dist/antd.less'
 
 initContract().then((props: IContract) => {
+  console.log(props);
   ReactDOM.render(<App {...props} />, document.getElementById('root'));
 });

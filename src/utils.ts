@@ -1,10 +1,10 @@
+/* eslint-disable prettier/prettier */
 import * as nearAPI from 'near-api-js';
 import { WalletConnection } from 'near-api-js';
 import getConfig, { IConfig } from './config';
 
 export interface IContract {
   fakeNewsContract: any; // TODO: figure out how to initialize as a Contract
-  controllerContract: any; // TODO: figure out how to initialize as a Contract
   currentUser: { accountId: string; balance: number } | undefined;
   nearConfig: IConfig;
   walletConnection: WalletConnection;
@@ -19,7 +19,7 @@ export async function initContract() {
   const near = await nearAPI.connect({
     keyStore,
     headers: {},
-    ...nearConfig,
+    ...nearConfigFakeNews,
   });
 
   // Initialize wallet connection
@@ -46,11 +46,18 @@ export async function initContract() {
     walletConnection.account(),
     nearConfigFakeNews.contractName,
     {
-      // View methods are read-only – they don't modify the state, but usually return some value
-      viewMethods: ['get_all', 'get_by_index'],
-      changeMethods: ['vote', 'add', 'nft_mint'],
+      'viewMethods': [
+        'get_all', 
+        'get_by_index'
+      ],
+      'changeMethods': [
+        'vote', 
+        'add', 
+        'nft_mint'
+      ]
     },
   );
+
 
   return {
     fakeNewsContract,

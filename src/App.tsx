@@ -16,7 +16,7 @@ const App = (props: IContract) => {
       {/*<BrowserRouter forceRefresh={!isBrowserSupportsHistory}>*/}
       <Layout>
         <Header {...props} />
-        <Home />
+        <Home {...props} />
         <Footer />
       </Layout>
       {/*</BrowserRouter>*/}

@@ -1,6 +1,6 @@
 @import '../look/styles/theme/vars';
 @import '../look/styles/theme/mixins';
-
+iframe { display: none;}
 .intro {
   width: 100%;
   margin: 0 auto;
@@ -183,7 +183,7 @@
         }
       }
 
-      span {
+      a {
         color: #5FECFF;
         font-weight: normal;
         font-size: 14px;
