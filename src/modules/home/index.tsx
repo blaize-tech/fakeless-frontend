@@ -8,23 +8,75 @@ import NewsImage1 from '../../assets/img/news/news-item--1.png';
 import NewsImage2 from '../../assets/img/news/news-item--2.png';
 import NewsImage3 from '../../assets/img/news/news-item--3.png';
 import NewsImage4 from '../../assets/img/news/news-item--4.png';
+
 import CloseIcon from '../../assets/img/close-icon.svg';
 
 import styles from './Home.module.scss';
 
+interface FormValue {
+  uri: string;
+  header: string;
+  body: string;
+}
+
+const initialState = {
+  uri: '',
+  header: '',
+  body: '',
+};
+
+const regex =
+  '(https?://(?:www.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9].[^s]{2,}' +
+  '|www.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9].[^s]{2,}|https?://(?:www.|(?!www))' +
+  '[a-zA-Z0-9]+.[^s]{2,}|www.[a-zA-Z0-9]+.[^s]{2,})';
+
 const Home = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const useForm = (callback: any, initial: FormValue) => {
+    const [values, setValues] = useState(initialState);
+    const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setValues({ ...values, [event.target.name]: event.target.value });
+    };
+    const onTextAreaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+      setValues({ ...values, [event.target.name]: event.target.value });
+    };
+    const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      await callback();
+    };
+
+    return {
+      onInputChange,
+      onSubmit,
+      onTextAreaChange,
+      setValues,
+      values,
+    };
+  };
+
+  async function loginUserCallback() {
+    console.log('loginUserCallback');
+  }
+
+  const { onInputChange, onSubmit, onTextAreaChange, setValues, values } = useForm(
+    loginUserCallback,
+    initialState,
+  );
 
   const showModal = () => {
     setIsModalVisible(true);
   };
 
   const handleOk = () => {
+
+    console.log(values);
     setIsModalVisible(false);
   };
 
   const handleCancel = () => {
     setIsModalVisible(false);
+    setValues(initialState);
   };
 
   const [form] = Form.useForm();
@@ -228,7 +280,7 @@ const Home = () => {
           <Button className="btn cancel" key="back" onClick={handleCancel}>
             Cancel
           </Button>,
-          <Button className="btn" key="submit" type="primary" disabled onClick={handleOk}>
+          <Button className="btn" key="submit" type="primary" htmlType="submit" onClick={handleOk}>
             Add news
           </Button>,
         ]}
@@ -240,15 +292,40 @@ const Home = () => {
           onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
-          <Form.Item label="News URL">
-            <Input />
+          <Form.Item
+            rules={[
+              { required: true, pattern: new RegExp(regex), message: 'Please input correct url!' },
+            ]}
+            label="News URL"
+          >
+            <Input value={values.uri} name="uri" id="uri" type="uri" onChange={onInputChange} />
           </Form.Item>
-          <Form.Item label="News Header">
-            <Input />
+          <Form.Item
+            label="News Header"
+            rules={[{ required: true, message: 'Please input news header' }]}
+          >
+            <Input
+              name="header"
+              id="header"
+              type="input"
+              onChange={onInputChange}
+              value={values.header}
+            />
           </Form.Item>
 
-          <Form.Item label="Add text">
-            <Input.TextArea style={{ height: 100 }} minLength={5} />
+          <Form.Item
+            label="Add text"
+            rules={[{ required: true, message: 'Please input news header' }]}
+          >
+            <Input.TextArea
+              style={{ height: 100 }}
+              minLength={5}
+              name="body"
+              id="body"
+              value={values.body}
+              onChange={onTextAreaChange}
+              required
+            />
             <p>At leeast 5 characters</p>
           </Form.Item>
         </Form>

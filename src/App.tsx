@@ -1,6 +1,6 @@
 import React from 'react';
 // import { BrowserRouter } from 'react-router-dom';
-import { InitContract } from './utils';
+import { IContract } from './utils';
 import Layout from './modules/layout';
 import Header from './modules/layout/components/Header';
 import Footer from './modules/layout/components/Footer';
@@ -10,7 +10,7 @@ import '@modules/look/styles/app.scss';
 
 // const isBrowserSupportsHistory = 'pushState' in window.history;
 
-const App = (props: InitContract) => {
+const App = (props: IContract) => {
   return (
     <div className="app">
       {/*<BrowserRouter forceRefresh={!isBrowserSupportsHistory}>*/}
