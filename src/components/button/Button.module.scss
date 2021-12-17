@@ -1,6 +1,8 @@
 @import '../../styles/vars.scss';
+@import '../../styles/mixins.scss';
 
 .btn {
+  @include flex-align(center);
   font-family: 'HelveticaNeueCyr';
   font-weight: 500;
   font-size: 18px;
@@ -54,6 +56,22 @@
 
     &:hover {
       background-color: $primary-color;
+    }
+  }
+
+  .iconType {
+    @include flex-justify-align(center, center);
+    width: 23px;
+    height: 23px;
+    border-radius: 50%;
+    background-color: $white-text;
+    margin-right: 6px;
+    overflow: hidden;
+
+    img {
+      display: block;
+      width: 12px;
+      height: 12px;
     }
   }
 }
