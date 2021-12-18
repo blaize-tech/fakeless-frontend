@@ -116,8 +116,8 @@ const Home = (props: IContract) => {
       await fakeNewsContract.vote({ index: news.id, is_like });
       await updateNews();
       withSuccess('Your vote was added');
-    } catch (err) {
-      withError(err.message);
+    } catch {
+      withError('failed to vote');
     }
   }
 
