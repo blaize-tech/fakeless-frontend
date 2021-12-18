@@ -262,7 +262,7 @@ const Home = (props: IContract) => {
                       }
                     >
                       {item.like > 0 && item.dislike > 0
-                        ? (item.like / (item.like + item.dislike)).toFixed(2) * 100
+                        ? ((item.like / (item.like + item.dislike)) * 100).toFixed(2)
                         : 100}{' '}
                       %
                     </span>
@@ -290,7 +290,7 @@ const Home = (props: IContract) => {
 
                   <CustomButton
                     text={item.published ? 'Published' : 'Publish'}
-                    color={item.published ? 'transaprent' : 'primary'}
+                    // color={item.published ? 'transaprent' : 'primary'}
                     size="default"
                     onClick={() => {
                       publishedNewsItem(item);
