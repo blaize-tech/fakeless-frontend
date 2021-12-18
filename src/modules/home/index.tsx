@@ -13,7 +13,6 @@ import CloseIcon from '../../assets/img/close-icon.svg';
 
 import styles from './Home.module.scss';
 import { IContract } from 'src/utils';
-import { withSuccess } from 'antd/lib/modal/confirm';
 
 function getImage(): string {
   function getRandomInt(max: number) {
