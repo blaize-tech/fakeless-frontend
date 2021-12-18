@@ -113,7 +113,7 @@ const Home = (props: IContract) => {
 
   async function makeVote(news: News, is_like: boolean) {
     try {
-      await fakeNewsContract.vote({ index: news.id, is_like });
+      await fakeNewsContract.vote({ index: news.id - 1, is_like });
       await updateNews();
       withSuccess('Your vote was added');
     } catch {
