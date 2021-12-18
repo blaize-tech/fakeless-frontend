@@ -1,6 +1,8 @@
 @import '../look/styles/theme/vars';
 @import '../look/styles/theme/mixins';
-iframe { display: none;}
+iframe {
+  display: none;
+}
 .intro {
   width: 100%;
   margin: 0 auto;
@@ -163,14 +165,14 @@ iframe { display: none;}
 
       p {
         width: fit-content;
-        color: #6E6E6E;
+        color: #6e6e6e;
 
         &:first-child {
           margin-right: 23px;
           position: relative;
 
           &:after {
-            content: "";
+            content: '';
             position: absolute;
             right: -12px;
             top: 7px;
@@ -178,13 +180,13 @@ iframe { display: none;}
             height: 3px;
             border-radius: 50%;
             overflow: hidden;
-            background-color: #6E6E6E;
+            background-color: #6e6e6e;
           }
         }
       }
 
       a {
-        color: #5FECFF;
+        color: #5fecff;
         font-weight: normal;
         font-size: 14px;
         line-height: 1;
@@ -263,13 +265,13 @@ iframe { display: none;}
 
       &:before {
         position: absolute;
-        content: "";
+        content: '';
         top: 0;
         left: 0;
         width: 20px;
         height: 20px;
         background-size: 100%;
-        transition: all .3s ease-in-out;
+        transition: all 0.3s ease-in-out;
       }
     }
 
@@ -279,7 +281,7 @@ iframe { display: none;}
 
     &__btnGood:hover:before {
       background: url('../../assets/img/green-bird-icon--hover.svg') no-repeat center;
-      transition: all .3s ease-in-out;
+      transition: all 0.3s ease-in-out;
     }
 
     &__btnBad:before {
@@ -288,9 +290,8 @@ iframe { display: none;}
 
     &__btnBad:hover:before {
       background: url('../../assets/img/red-close-icon--hover.svg') no-repeat center;
-      transition: all .3s ease-in-out;
+      transition: all 0.3s ease-in-out;
     }
-
   }
 }
 
@@ -313,7 +314,7 @@ iframe { display: none;}
     }
 
     :global(.ant-modal-content) {
-      background: #2B313A;
+      background: #2b313a;
     }
 
     :global(.ant-modal-close) {
@@ -327,20 +328,20 @@ iframe { display: none;}
 
     :global(.ant-form-item-control) {
       p {
-        color: #8F8F8F;
+        color: #8f8f8f;
         margin-top: 6px;
       }
     }
 
     :global(.ant-modal-header) {
-      background: #2B313A;
+      background: #2b313a;
       padding: 40px 20px;
       border-color: #666666;
 
       :global(.ant-modal-title) {
         font-weight: bold;
         font-size: 24px;
-        color: #FBFBFB;
+        color: #fbfbfb;
         line-height: 18px;
       }
     }

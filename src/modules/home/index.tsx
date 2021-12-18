@@ -96,7 +96,7 @@ const Home = (props: IContract) => {
     };
   };
 
-  function withSuccess(text: string){
+  function withSuccess(text: string) {
     notification.success({
       message: 'Success',
       className: 'notificationError',
@@ -104,7 +104,7 @@ const Home = (props: IContract) => {
     });
   }
 
-  function withError(text: string){
+  function withError(text: string) {
     notification.error({
       message: 'Error',
       className: 'notificationError',
@@ -114,10 +114,10 @@ const Home = (props: IContract) => {
 
   async function makeVote(news: News, is_like: boolean) {
     try {
-      await fakeNewsContract.vote({ index: news.id,  is_like });
+      await fakeNewsContract.vote({ index: news.id, is_like });
       await updateNews();
       withSuccess('Your vote was added');
-    } catch(err) {
+    } catch (err) {
       withError(err.message);
     }
   }
@@ -165,10 +165,10 @@ const Home = (props: IContract) => {
   };
 
   async function publishedNewsItem(news: News) {
-    if (news.like < 3 ) return;
-    await fakeNewsContract.nft_mint({ index : news.id });
+    if (news.like < 3) return;
+    await fakeNewsContract.nft_mint({ index: news.id });
     await updateNews();
-  };
+  }
 
   return (
     <main>
@@ -232,7 +232,10 @@ const Home = (props: IContract) => {
                       <p>17.12.2021</p>
                       {/* <p>{item.date}</p> */}
                       <p>
-                        Source: <a href={item.uri} target="_blank">{item.uri}</a>
+                        Source:{' '}
+                        <a href={item.uri} target="_blank">
+                          {item.uri}
+                        </a>
                       </p>
                     </div>
 
@@ -254,26 +257,45 @@ const Home = (props: IContract) => {
                 <div className={styles.newsStats}>
                   <p className={styles.newsStats__title}>
                     Credibility:
-                    <span className={(((item.dislike + item.like >= 5) && (item.like < item.dislike)) ? styles.red : "")}>
-                      {(item.like > 0 && item.dislike > 0) ? (((item.like / ( item.like + item.dislike)).toFixed(2)) * 100) : 100} %
+                    <span
+                      className={
+                        item.dislike + item.like >= 5 && item.like < item.dislike ? styles.red : ''
+                      }
+                    >
+                      {item.like > 0 && item.dislike > 0
+                        ? (item.like / (item.like + item.dislike)).toFixed(2) * 100
+                        : 100}{' '}
+                      %
                     </span>
                   </p>
                   <div className={styles.validators}>
                     <p>Validators score:</p>
-                    <button onClick={()=> {makeVote(item, true)}} className={cn(styles.validators__btn, styles.validators__btnGood)}>
+                    <button
+                      onClick={() => {
+                        makeVote(item, true);
+                      }}
+                      className={cn(styles.validators__btn, styles.validators__btnGood)}
+                    >
                       {item.like}
                     </button>
 
-                    <button onClick={()=> {makeVote(item, false)}} className={cn(styles.validators__btn, styles.validators__btnBad)}>
+                    <button
+                      onClick={() => {
+                        makeVote(item, false);
+                      }}
+                      className={cn(styles.validators__btn, styles.validators__btnBad)}
+                    >
                       {item.dislike}
                     </button>
                   </div>
 
                   <CustomButton
-                    text={(item.published ? "Published" : "Publish")}
-                    color={(item.published ? "transaprent" : "primary")}
+                    text={item.published ? 'Published' : 'Publish'}
+                    color={item.published ? 'transaprent' : 'primary'}
                     size="default"
-                    onClick={()=>{ publishedNewsItem(item) }}
+                    onClick={() => {
+                      publishedNewsItem(item);
+                    }}
                   />
                 </div>
               </li>

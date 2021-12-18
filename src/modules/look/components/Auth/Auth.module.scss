@@ -20,12 +20,12 @@
     outline: none;
     border: none;
     padding: 0 27px;
-    transition: all .3s ease-in-out;
+    transition: all 0.3s ease-in-out;
     cursor: pointer;
 
     &:hover {
       color: $primary-hover-color;
-      transition: all .3s ease-in-out;
+      transition: all 0.3s ease-in-out;
     }
   }
 

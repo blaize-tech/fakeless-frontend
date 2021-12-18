@@ -46,18 +46,10 @@ export async function initContract() {
     walletConnection.account(),
     nearConfigFakeNews.contractName,
     {
-      'viewMethods': [
-        'get_all', 
-        'get_by_index'
-      ],
-      'changeMethods': [
-        'vote', 
-        'add', 
-        'nft_mint'
-      ]
+      viewMethods: ['get_all', 'get_by_index'],
+      changeMethods: ['vote', 'add', 'nft_mint'],
     },
   );
-
 
   return {
     fakeNewsContract,
